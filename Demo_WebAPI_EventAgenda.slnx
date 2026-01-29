@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/ApplicationCore/" />
+  <Folder Name="/Domain/">
+    <Project Path="Demo_WebAPI_EventAgenda.Domain/Demo_WebAPI_EventAgenda.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/" />
+  <Folder Name="/Presentation/" />
+  <Folder Name="/Éléments de solution/">
+    <File Path="readme.md" />
+  </Folder>
+</Solution>

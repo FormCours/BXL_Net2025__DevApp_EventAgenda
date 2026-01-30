@@ -8,7 +8,9 @@
   <Folder Name="/Infrastructure/">
     <Project Path="Demo_WebAPI_EventAgenda.Infrastructure.Database/Demo_WebAPI_EventAgenda.Infrastructure.Database.csproj" />
   </Folder>
-  <Folder Name="/Presentation/" />
+  <Folder Name="/Presentation/">
+    <Project Path="Demo_WebAPI_EventAgenda.Presentation.WebAPI/Demo_WebAPI_EventAgenda.Presentation.WebAPI.csproj" Id="8b54bce3-6314-48ea-bf77-c88f27ccd430" />
+  </Folder>
   <Folder Name="/Éléments de solution/">
     <File Path="readme.md" />
   </Folder>

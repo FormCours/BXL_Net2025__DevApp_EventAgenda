@@ -21,9 +21,14 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Configs
                 .ValueGeneratedOnAdd();
 
             builder.Property(ae => ae.Name)
-                .HasMaxLength(500)
+                .HasMaxLength(250)
                 .IsUnicode()    // -> NVARCHAR
                 .IsRequired();
+
+            builder.Property(ae => ae.Desc)
+                .HasMaxLength(2_000)
+                .IsUnicode()
+                .IsRequired(false);
 
             builder.Property(ae => ae.Location)
                 .HasMaxLength(100)

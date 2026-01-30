@@ -44,6 +44,14 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Configs
             builder.HasIndex(ae => new { ae.Name, ae.Location, ae.StartDate })
                 .IsUnique()
                 .HasDatabaseName("IDX_Agenda_Events__Name_Loc_Date");
+
+            // Relations
+            builder
+                .HasOne(ae => ae.Category)  // Lien "AE -> C"
+                .WithMany()                 // Lien "C -> AE"
+                .HasForeignKey("Category_Id")
+                .HasConstraintName("FK_Agenda_Events__Categories")
+                .IsRequired();
         }
     }
 }

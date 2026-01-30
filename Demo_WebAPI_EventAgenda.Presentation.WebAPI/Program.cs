@@ -20,9 +20,14 @@ builder.Services.AddScoped<IAgendaEventRepository, AgendaEventRepository>();
 // - DB Context
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer("Connection sera présente ici apres la pause 🍔");
-});
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 
+    // La méthode "GetConnectionString" permet d'obtenir la connection suivante 
+    //  - Data Source=ICT-204-00             : Serveur de base de donnée
+    //  - Initial Catalog=digital_agenda_db  : La base de donnée ciblée
+    //  - Integrated Security=True;          : Login de connexion (Crédential de la machine - Dev only)
+    //  - Trust Server Certificate=True      : Validation du certificat auto-signé du serveur (Dev only)
+});
 
 
 builder.Services.AddControllers();

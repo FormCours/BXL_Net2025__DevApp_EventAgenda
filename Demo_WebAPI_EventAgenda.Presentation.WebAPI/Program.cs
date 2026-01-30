@@ -21,7 +21,7 @@ builder.Services.AddScoped<IAgendaEventRepository, AgendaEventRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
-
+    
     // La méthode "GetConnectionString" permet d'obtenir la connection suivante 
     //  - Data Source=ICT-204-00             : Serveur de base de donnée
     //  - Initial Catalog=digital_agenda_db  : La base de donnée ciblée

@@ -8,9 +8,15 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database
     // Configuration de la base de donnée pour EFCore
     public class AppDbContext : DbContext
     {
+
         // Ensemble des tables
         public DbSet<AgendaEvent> AgendaEvents { get; set; }
         public DbSet<EventCategory> EventCategories { get; set; }
+
+
+        // Définition du ctor (Utiliser par l'injection de dépendance)
+        public AppDbContext(DbContextOptions options) : base(options) { }
+
 
         // Appliquer de la configuration
         protected override void OnModelCreating(ModelBuilder modelBuilder)

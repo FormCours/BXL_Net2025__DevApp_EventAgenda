@@ -1,6 +1,6 @@
 ﻿namespace Demo_WebAPI_EventAgenda.Domain.Models
 {
-    public class AgendaEvent
+    public class AgendaEvent 
     {
         // Propriétés
         public long Id { get; private set; }

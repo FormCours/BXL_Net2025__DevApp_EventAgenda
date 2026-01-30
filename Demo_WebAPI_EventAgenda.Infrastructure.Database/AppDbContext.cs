@@ -1,5 +1,7 @@
 ﻿using Demo_WebAPI_EventAgenda.Domain.Models;
+using Demo_WebAPI_EventAgenda.Infrastructure.Database.Configs;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Demo_WebAPI_EventAgenda.Infrastructure.Database
 {
@@ -10,7 +12,19 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database
         public DbSet<AgendaEvent> AgendaEvents { get; set; }
         public DbSet<EventCategory> EventCategories { get; set; }
 
+        // Appliquer de la configuration
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Charger des classes qui implement "IEntityTypeConfiguration<>"
 
+            // - Ajout de toutes les configs à la mano
+            /*
+            modelBuilder.ApplyConfiguration(new AgendaEventConfig());
+            modelBuilder.ApplyConfiguration(new EventCategoryConfig());
+            */
 
+            // - Ajout automatique des configs de l'assemble courante
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
 }

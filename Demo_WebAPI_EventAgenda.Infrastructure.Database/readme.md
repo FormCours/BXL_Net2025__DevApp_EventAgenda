@@ -6,7 +6,7 @@
 ## Installation des outils
 `dotnet tool install --global dotnet-ef`
 
-## Ajouter un migration (Depuis la solution)
+## CODE FIRST : Ajouter un migration (Depuis la solution)
 Commande à utiliser : 
 ```
 dotnet ef migrations add "<Name>"
@@ -22,7 +22,7 @@ dotnet ef --project "Demo_WebAPI_EventAgenda.Infrastructure.Database" --startup-
 - Option `--project "<Projet>"` : Projet avec le DbContext de EFCore
 - Option `--startup-project "<Projet>"` : Projet de démarrage qui doit contenir le tool "Design"
 
-## Appliqué les migrations EFCore sur la DB
+## CODE FIRST : Appliqué les migrations EFCore sur la DB
 Commande à utiliser : 
 ```
 dotnet ef database update

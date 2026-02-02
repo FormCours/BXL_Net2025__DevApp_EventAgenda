@@ -4,7 +4,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces
 {
     public interface IAgendaEventRepository
     {
-        AgendaEvent GetById(long id);
+        AgendaEvent? GetById(long id);
         IEnumerable<AgendaEvent> GetMany(int offset, int limit);
 
         AgendaEvent Insert(AgendaEvent data);

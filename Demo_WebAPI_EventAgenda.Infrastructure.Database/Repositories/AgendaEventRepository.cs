@@ -50,7 +50,15 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
 
         public bool Delete(long id)
         {
-            throw new NotImplementedException();
+            AgendaEvent? target = GetById(id);
+
+            if(target is null) 
+                return false;
+
+            _DbContext.Remove(target);
+            _DbContext.SaveChanges();
+
+            return true;
         }
     }
 }

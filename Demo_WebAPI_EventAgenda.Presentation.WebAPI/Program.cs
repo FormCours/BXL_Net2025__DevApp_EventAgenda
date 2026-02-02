@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 //   ...
 // - Repository
 builder.Services.AddScoped<IAgendaEventRepository, AgendaEventRepository>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 //   ...
 // - DB Context
 builder.Services.AddDbContext<AppDbContext>(options =>

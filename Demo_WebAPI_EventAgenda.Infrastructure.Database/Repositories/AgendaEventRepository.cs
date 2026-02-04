@@ -52,7 +52,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
         {
             AgendaEvent? target = GetById(id);
 
-            if(target is null) 
+            if (target is null)
                 return false;
 
             _DbContext.Remove(target);
@@ -60,5 +60,33 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
 
             return true;
         }
+
+        public IEnumerable<AgendaEvent> GetByDate(DateTime startDate, DateTime? endDate = null)
+        {
+            DateTime currentEndDate = endDate ?? startDate;
+
+            var result = _DbContext.AgendaEvents
+                            .AsNoTracking()
+                            .Where(ae => ae.StartDate <= currentEndDate || ae.EndDate >= startDate)
+                            .ToList();
+
+            return result;
+        }
     }
 }
+
+
+
+/* 
+Exemple d'event pour la méthode "GetByDate"
+- Event
+    10/02           A
+    20/02           B
+    05/02  10/02    C
+    15/02  25/02    D
+
+- Recherche
+    10/02  -----    => A C
+    22/02  -----    => D
+    09/02  19/02    => A C D
+*/

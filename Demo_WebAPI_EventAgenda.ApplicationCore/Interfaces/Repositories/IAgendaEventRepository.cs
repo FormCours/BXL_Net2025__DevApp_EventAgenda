@@ -10,5 +10,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories
         AgendaEvent Insert(AgendaEvent data);
         AgendaEvent Update(long id, AgendaEvent data);
         bool Delete(long id);
+
+        IEnumerable <AgendaEvent> GetByDate (DateTime startDate, DateTime? endDate = null);
     }
 }

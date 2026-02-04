@@ -52,17 +52,30 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
 
         public IEnumerable<AgendaEvent> GetMany(int page, int nbElement)
         {
-            throw new NotImplementedException();
+            if (page <= 0 || nbElement <= 0)
+            {
+                throw new ArgumentOutOfRangeException("La page ou le nombre d'élément doivent etre superieur a zéro");
+            }
+
+            int offset = (page - 1) * nbElement;
+            int limit = nbElement ;
+            
+            return _agendaEventRepository.GetMany(offset,limit);
         }
 
         public IEnumerable<AgendaEvent> GetAllByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            return _agendaEventRepository.GetByDate(date);
         }
 
         public IEnumerable<AgendaEvent> GetAllByDateRange(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            if(startDate <= endDate)
+            {
+                throw new ArgumentOutOfRangeException("Les dates sont invalides");
+            }
+
+            return _agendaEventRepository.GetByDate(startDate, endDate);
         }
 
         public void UpdateDate(long id, DateTime startDate, DateTime? endDate)

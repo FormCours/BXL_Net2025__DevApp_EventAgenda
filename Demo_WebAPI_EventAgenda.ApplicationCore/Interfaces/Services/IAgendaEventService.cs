@@ -11,7 +11,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services
         IEnumerable<AgendaEvent> GetAllByDateRange(DateTime startDate, DateTime endDate);
 
         AgendaEvent Create(AgendaEvent data);
-        void UpdateDate(long id, DateTime startDate, DateTime? endDate);
+        void UpdateDate(long id, DateTime startDate, DateTime? endDate = null);
         void Delete(long id);
     }
 }

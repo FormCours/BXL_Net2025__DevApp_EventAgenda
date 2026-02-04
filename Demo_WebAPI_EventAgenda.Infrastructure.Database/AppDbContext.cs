@@ -28,6 +28,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database
             /*
             modelBuilder.ApplyConfiguration(new AgendaEventConfig());
             modelBuilder.ApplyConfiguration(new EventCategoryConfig());
+            ...
             */
 
             // - Ajout automatique des configs de l'assemble courante

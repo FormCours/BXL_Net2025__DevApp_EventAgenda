@@ -1,4 +1,4 @@
-﻿using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces;
+﻿using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories;
 using Demo_WebAPI_EventAgenda.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

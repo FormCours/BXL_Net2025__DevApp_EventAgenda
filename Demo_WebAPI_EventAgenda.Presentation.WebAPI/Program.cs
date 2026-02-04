@@ -1,4 +1,6 @@
 ﻿using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories;
+using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services;
+using Demo_WebAPI_EventAgenda.ApplicationCore.Services;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // - AddTransient : Créer une instance a chaque demande
 
 // DI Configuration 
-// - Services (TODO)
+// - Services
+builder.Services.AddScoped<IAgendaEventService, AgendaEventService>();
 //   ...
 // - Repository
 builder.Services.AddScoped<IAgendaEventRepository, AgendaEventRepository>();

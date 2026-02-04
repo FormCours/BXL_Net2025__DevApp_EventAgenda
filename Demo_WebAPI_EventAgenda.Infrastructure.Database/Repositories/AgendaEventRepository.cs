@@ -42,10 +42,16 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
             return element.Entity;
         }
 
-        public AgendaEvent Update(long id, AgendaEvent data)
+        public AgendaEvent Update(AgendaEvent data)
         {
-            // Dû au pattern "Domain Driven Developpement", on devra coder des méthodes "update" dans le model
-            throw new NotImplementedException();
+            // Permet de modifier dans l'objet du context
+            EntityEntry<AgendaEvent> result = _DbContext.Update(data);
+
+            // Appliquer la modification du context dans la base de donnée
+            _DbContext.SaveChanges();
+
+            // Renvoyé l'element ajouté à jours
+            return result.Entity;
         }
 
         public bool Delete(long id)

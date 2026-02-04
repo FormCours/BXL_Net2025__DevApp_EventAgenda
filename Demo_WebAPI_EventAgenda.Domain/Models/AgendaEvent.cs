@@ -1,4 +1,6 @@
-﻿namespace Demo_WebAPI_EventAgenda.Domain.Models
+﻿using Demo_WebAPI_EventAgenda.Domain.Models;
+
+namespace Demo_WebAPI_EventAgenda.Domain.Models
 {
     public class AgendaEvent 
     {
@@ -28,6 +30,17 @@
             StartDate = startDate;
             EndDate = endDate;
             Category = category;
+        }
+
+        public AgendaEvent ChangeDate(DateTime startDateUpdated, DateTime? endDateUpdated)
+        {
+            if(endDateUpdated is not null && endDateUpdated < startDateUpdated)
+                throw new ArgumentException("Les dates de l'événement sont invalides");
+
+            StartDate = startDateUpdated;
+            EndDate = endDateUpdated;
+
+            return this;  // -> Permet d'enchainer les méthodes (C'est optionnel)
         }
     }
 }

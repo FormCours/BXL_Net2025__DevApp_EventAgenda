@@ -8,7 +8,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories
         IEnumerable<AgendaEvent> GetMany(int offset, int limit);
 
         AgendaEvent Insert(AgendaEvent data);
-        AgendaEvent Update(long id, AgendaEvent data);
+        AgendaEvent Update(AgendaEvent data);
         bool Delete(long id);
 
         IEnumerable <AgendaEvent> GetByDate (DateTime startDate, DateTime? endDate = null);

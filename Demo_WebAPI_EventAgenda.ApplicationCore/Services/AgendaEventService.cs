@@ -80,7 +80,17 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
 
         public void UpdateDate(long id, DateTime startDate, DateTime? endDate)
         {
-            throw new NotImplementedException();
+            // Récuperation de l'event
+            AgendaEvent? agendaEvent = _agendaEventRepository.GetById(id);
+
+            if(agendaEvent is null)
+                throw new AgendaEventNotFoundException();
+
+            // Modification des données via le Domain (Pattern DDD)
+            agendaEvent.ChangeDate(startDate, endDate);
+
+            // Répercution du changement dans la base de donnée via le repo
+            _agendaEventRepository.Update(agendaEvent);
         }
     }
 }

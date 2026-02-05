@@ -17,6 +17,7 @@ namespace Demo_WebAPI_EventAgenda.Domain.BusinessExceptions
         }
     }
 
+
     // - Spécialiser pour les erreurs lors de la creation
     public class AgendaEventCreateException : AgendaEventException
     {
@@ -29,6 +30,8 @@ namespace Demo_WebAPI_EventAgenda.Domain.BusinessExceptions
             : base($"{INNER_MESSAGE} : {message}", data) { }
     }
 
+
+    // - Spécialiser quand l'élément n'est pas trouvé
     public class AgendaEventNotFoundException : AgendaEventException
     {
         public AgendaEventNotFoundException() : base("L'évenement n'a pas été trouvé !") {}

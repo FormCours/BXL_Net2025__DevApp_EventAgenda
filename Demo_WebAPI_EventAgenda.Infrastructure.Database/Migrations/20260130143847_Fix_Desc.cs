@@ -19,11 +19,11 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Migrations
 
             // ↓ Customisation pour manipuler les données
             migrationBuilder.Sql(
-                "UPDATE Agenda_Events SET Desc=Name"
+                "UPDATE [Agenda_Events] SET [Desc]=[Name]"
             );
 
             migrationBuilder.Sql(
-                "UPDATE Agenda_Events SET Name=SUBSTRING(Name, 1, 100)"
+                "UPDATE [Agenda_Events] SET [Name]=SUBSTRING([Name], 1, 100)"
             );
             // ↑ Customisation
 
@@ -53,7 +53,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Migrations
 
             // ↓ Customisation d'annulation de la migration
             migrationBuilder.Sql(
-                "UPDATE Agenda_Events SET Name = SUBSTRING(Desc, 1, 500)"
+                "UPDATE [Agenda_Events] SET [Name] = SUBSTRING(Desc, 1, 500)"
             );
             // ↑ Customisation
 

@@ -77,11 +77,35 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
             };
 
             // Création d'une réponse 201 "CREATED"
-            return CreatedAtAction(         
+            return CreatedAtAction(
                 nameof(GetById),            // → Endpoint pour récupérer les données
                 new { Id = result.Id },     // → Les données necessaire au endpoint (si besoin)
                 dto                         // → Les données de l'objet créé
             );
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public IActionResult GetAll([FromQuery] int page, [FromQuery] int nbElement)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("date/{startDate}")]
+        public IActionResult GetByDate([FromRoute] DateTime startDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("date/{startDate}/to/{endDate}")]
+        public IActionResult GetByDate([FromRoute] DateTime startDate, [FromRoute] DateTime endDate)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -61,12 +61,24 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 
             // Utilisation du service (ApplicationCore) pour ajouter les données
             AgendaEvent result = _agendaEventService.Create(agendaEvent);
-            
+
+            // Transfere des données (Domain) dans un objet "ResponseDTO"
+            AgendaEventResponseDto dto = new AgendaEventResponseDto()
+            {
+                Id = result.Id,
+                Name = result.Name,
+                Desc = result.Desc,
+                Location = result.Location,
+                StartDate = result.StartDate,
+                EndDate = result.EndDate,
+                Category = result.Category.Name
+            };
+
             // Création d'une réponse 201 "CREATED"
             return CreatedAtAction(         
                 nameof(GetById),            // → Endpoint pour récupérer les données
                 new { Id = result.Id },     // → Les données necessaire au endpoint (si besoin)
-                result                      // → Les données de l'objet créé
+                dto                         // → Les données de l'objet créé
             );
         }
     }

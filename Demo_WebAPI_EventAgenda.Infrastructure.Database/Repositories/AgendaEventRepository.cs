@@ -18,7 +18,9 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
         // ↓ Implementation du repository
         public AgendaEvent? GetById(long id)
         {
-            return _DbContext.AgendaEvents.SingleOrDefault(ae => ae.Id == id);
+            return _DbContext.AgendaEvents
+                .Include(ae => ae.Category)
+                .SingleOrDefault(ae => ae.Id == id);
         }
 
         public IEnumerable<AgendaEvent> GetMany(int offset, int limit)
@@ -32,8 +34,21 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
 
         public AgendaEvent Insert(AgendaEvent data)
         {
+            // Check de l'existance des catégories
+            EventCategory? categoryInDB = _DbContext.EventCategories.SingleOrDefault(c => c.Name == data.Category.Name);
+
+            // Ré-créer l'élément à ajouter en DB avec le lien vers la categorie si elle existe (Limitation du au DDD)
+            AgendaEvent dataToInsert = new AgendaEvent(
+                data.Name,
+                data.Desc,
+                data.Location,
+                data.StartDate,
+                data.EndDate,
+                categoryInDB ?? data.Category  // Coalesce -> Categorie existante sinon la categorie demandé.
+            );
+
             // Permet d'ajouter dans le context
-            EntityEntry<AgendaEvent> element = _DbContext.AgendaEvents.Add(data);
+            EntityEntry<AgendaEvent> element = _DbContext.AgendaEvents.Add(dataToInsert);
 
             // Appliquer la modification du context dans la base de donnée
             _DbContext.SaveChanges();

@@ -1,7 +1,10 @@
 ﻿using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services;
 using Demo_WebAPI_EventAgenda.Domain.Models;
+using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Request;
+using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 {
@@ -23,11 +26,48 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
         [HttpGet(":id")]
         public IActionResult GetById([FromRoute] long id)
         {
+            // Récuperation des données depuis le service "ApplicationCore"
             AgendaEvent result = _agendaEventService.GetById(id);
 
-            // TODO Ne pas envoyer l'objet du Domain, passer par un DTO !
+            // Transfere des données (Domain) dans un objet "ResponseDTO"
+            AgendaEventResponseDto dto = new AgendaEventResponseDto()
+            {
+                Id = result.Id,
+                Name = result.Name,
+                Desc = result.Desc,
+                Location = result.Location,
+                StartDate = result.StartDate,
+                EndDate = result.EndDate,
+                Category = result.Category.Name
+            };
 
-            return Ok(result);
+            // Renvoi la réponse sous forme d'un DTO
+            return Ok(dto);
+        }
+
+        // Endpoint pour ajouter un évent dans la DB
+        [HttpPost]
+        public IActionResult AddElement(AgendaEventRequestDto data)
+        {
+            // Transformer les données "RequestDto" vers le type model (Domain)
+            AgendaEvent agendaEvent = new AgendaEvent(
+                    data.Name,
+                    data.Desc,
+                    data.Location,
+                    data.StartDate,
+                    data.EndDate,
+                    new EventCategory(data.Category)
+            );
+
+            // Utilisation du service (ApplicationCore) pour ajouter les données
+            AgendaEvent result = _agendaEventService.Create(agendaEvent);
+            
+            // Création d'une réponse 201 "CREATED"
+            return CreatedAtAction(         
+                nameof(GetById),            // → Endpoint pour récupérer les données
+                new { Id = result.Id },     // → Les données necessaire au endpoint (si besoin)
+                result                      // → Les données de l'objet créé
+            );
         }
     }
 }

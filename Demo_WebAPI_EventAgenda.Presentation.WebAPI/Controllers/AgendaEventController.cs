@@ -24,6 +24,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 
         // Endpoint pour récuperer un évent de la DB via son Id
         [HttpGet(":id")]
+        [ProducesResponseType<AgendaEventResponseDto>(200)]
         public IActionResult GetById([FromRoute] long id)
         {
             // Récuperation des données depuis le service "ApplicationCore"
@@ -47,6 +48,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 
         // Endpoint pour ajouter un évent dans la DB
         [HttpPost]
+        [ProducesResponseType<AgendaEventResponseDto>(201)]
         public IActionResult AddElement(AgendaEventRequestDto data)
         {
             // Transformer les données "RequestDto" vers le type model (Domain)

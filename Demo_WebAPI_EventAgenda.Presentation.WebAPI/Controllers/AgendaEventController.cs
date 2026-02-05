@@ -23,7 +23,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 
 
         // Endpoint pour récuperer un évent de la DB via son Id
-        [HttpGet(":id")]
+        [HttpGet("{id}")]
         [ProducesResponseType<AgendaEventResponseDto>(200)]
         public IActionResult GetById([FromRoute] long id)
         {

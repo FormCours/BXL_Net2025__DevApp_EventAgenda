@@ -3,6 +3,7 @@ using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services;
 using Demo_WebAPI_EventAgenda.ApplicationCore.Services;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories;
+using Demo_WebAPI_EventAgenda.Presentation.WebAPI.ExceptionHandlers;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -34,8 +35,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     //  - Trust Server Certificate=True      : Validation du certificat auto-signé du serveur (Dev only)
 });
 
-
+// Mapping des controllers
 builder.Services.AddControllers();
+
+// Gestion des exceptions (Pattern "Exception Handler")
+builder.Services.AddExceptionHandler<AgendaEventExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -52,6 +57,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
 
 app.UseAuthorization();
 

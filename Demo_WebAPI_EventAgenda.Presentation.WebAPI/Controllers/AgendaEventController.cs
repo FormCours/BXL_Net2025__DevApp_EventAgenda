@@ -5,6 +5,7 @@ using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using System.Xml.Linq;
 
 namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 {
@@ -87,25 +88,56 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            throw new NotImplementedException();
+            _agendaEventService.Delete(id);
+            return NoContent();
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery] int page, [FromQuery] int nbElement)
+        public IActionResult GetAll([FromQuery] int page = 1, [FromQuery] int nbElement = 10)
         {
-            throw new NotImplementedException();
+            var resutl = _agendaEventService.GetMany(page, nbElement);
+
+            var dto = resutl.Select(item => new AgendaEventListItemResponseDto()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                StartDate = item.StartDate,
+                EndDate = item.EndDate
+            });
+
+            return Ok(dto);
         }
 
         [HttpGet("date/{startDate}")]
         public IActionResult GetByDate([FromRoute] DateTime startDate)
         {
-            throw new NotImplementedException();
+            var resutl = _agendaEventService.GetAllByDate(startDate);
+
+            var dto = resutl.Select(item => new AgendaEventListItemResponseDto()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                StartDate = item.StartDate,
+                EndDate = item.EndDate
+            });
+
+            return Ok(dto);
         }
 
         [HttpGet("date/{startDate}/to/{endDate}")]
         public IActionResult GetByDate([FromRoute] DateTime startDate, [FromRoute] DateTime endDate)
         {
-            throw new NotImplementedException();
+            var resutl = _agendaEventService.GetAllByDateRange(startDate, endDate);
+
+            var dto = resutl.Select(item => new AgendaEventListItemResponseDto()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                StartDate = item.StartDate,
+                EndDate = item.EndDate
+            });
+
+            return Ok(dto);
         }
     }
 }

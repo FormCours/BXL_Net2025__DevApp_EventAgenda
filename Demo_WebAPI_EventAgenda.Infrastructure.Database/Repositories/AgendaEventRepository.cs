@@ -129,6 +129,7 @@ Exemple d'event pour la méthode "GetByDate"
     20/02           B
     07/02  10/02    C
     15/02  25/02    D
+    01/09  20/10    E
 
 - Recherche
     10/02  -----    => A C

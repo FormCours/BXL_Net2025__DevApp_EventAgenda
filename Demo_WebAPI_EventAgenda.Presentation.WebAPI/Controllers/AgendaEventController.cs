@@ -47,6 +47,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
             return Ok(dto);
         }
 
+
         // Endpoint pour ajouter un évent dans la DB
         [HttpPost]
         [ProducesResponseType<AgendaEventResponseDto>(201)]
@@ -85,7 +86,9 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
             );
         }
 
+
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
         public IActionResult Delete(int id)
         {
             _agendaEventService.Delete(id);
@@ -93,11 +96,12 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType<IEnumerable<AgendaEventListItemResponseDto>>(200)]
         public IActionResult GetAll([FromQuery] int page = 1, [FromQuery] int nbElement = 10)
         {
-            var resutl = _agendaEventService.GetMany(page, nbElement);
+            IEnumerable<AgendaEvent> result = _agendaEventService.GetMany(page, nbElement);
 
-            var dto = resutl.Select(item => new AgendaEventListItemResponseDto()
+            IEnumerable<AgendaEventListItemResponseDto> dto = result.Select(item => new AgendaEventListItemResponseDto()
             {
                 Id = item.Id,
                 Name = item.Name,
@@ -107,13 +111,16 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 
             return Ok(dto);
         }
+
+
 
         [HttpGet("date/{startDate}")]
+        [ProducesResponseType<IEnumerable<AgendaEventListItemResponseDto>>(200)]
         public IActionResult GetByDate([FromRoute] DateTime startDate)
         {
-            var resutl = _agendaEventService.GetAllByDate(startDate);
+            IEnumerable<AgendaEvent> result = _agendaEventService.GetAllByDate(startDate);
 
-            var dto = resutl.Select(item => new AgendaEventListItemResponseDto()
+            IEnumerable<AgendaEventListItemResponseDto> dto = result.Select(item => new AgendaEventListItemResponseDto()
             {
                 Id = item.Id,
                 Name = item.Name,
@@ -124,12 +131,15 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
             return Ok(dto);
         }
 
+
+
         [HttpGet("date/{startDate}/to/{endDate}")]
+        [ProducesResponseType<IEnumerable<AgendaEventListItemResponseDto>>(200)]
         public IActionResult GetByDate([FromRoute] DateTime startDate, [FromRoute] DateTime endDate)
         {
-            var resutl = _agendaEventService.GetAllByDateRange(startDate, endDate);
+            IEnumerable<AgendaEvent> result = _agendaEventService.GetAllByDateRange(startDate, endDate);
 
-            var dto = resutl.Select(item => new AgendaEventListItemResponseDto()
+            IEnumerable<AgendaEventListItemResponseDto> dto = result.Select(item => new AgendaEventListItemResponseDto()
             {
                 Id = item.Id,
                 Name = item.Name,

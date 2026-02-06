@@ -70,7 +70,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
 
         public IEnumerable<AgendaEvent> GetAllByDateRange(DateTime startDate, DateTime endDate)
         {
-            if(startDate <= endDate)
+            if(startDate > endDate)
             {
                 throw new ArgumentOutOfRangeException("Les dates sont invalides");
             }

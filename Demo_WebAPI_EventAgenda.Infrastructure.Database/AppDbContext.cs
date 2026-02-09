@@ -13,6 +13,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database
         public DbSet<AgendaEvent> AgendaEvents { get; set; }
         public DbSet<EventCategory> EventCategories { get; set; }
         public DbSet<Member> Members { get; set; }
+        public DbSet<Faq> Faqs { get; set; } 
 
 
         // Définition du ctor (Utiliser par l'injection de dépendance)

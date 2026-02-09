@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Demo_WebAPI_EventAgenda.ApplicationCore\Demo_WebAPI_EventAgenda.ApplicationCore.csproj" />
     <ProjectReference Include="..\Demo_WebAPI_EventAgenda.Domain\Demo_WebAPI_EventAgenda.Domain.csproj" />
     <ProjectReference Include="..\Demo_WebAPI_EventAgenda.Infrastructure.Database\Demo_WebAPI_EventAgenda.Infrastructure.Database.csproj" />

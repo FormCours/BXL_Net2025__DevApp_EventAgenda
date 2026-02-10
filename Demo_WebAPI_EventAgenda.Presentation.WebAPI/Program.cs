@@ -4,6 +4,7 @@ using Demo_WebAPI_EventAgenda.ApplicationCore.Services;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.ExceptionHandlers;
+using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Token;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -16,6 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 // - AddTransient : Créer une instance a chaque demande
 
 // DI Configuration 
+// - Tools
+builder.Services.AddSingleton<TokenTool>();
+
 // - Services
 builder.Services.AddScoped<IAgendaEventService, AgendaEventService>();
 builder.Services.AddScoped<IMemberService, MemberService>();

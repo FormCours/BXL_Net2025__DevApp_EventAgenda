@@ -6,6 +6,7 @@
         public string Question { get; private set; }
         public string Response { get; private set; }
         public bool IsVisible { get; private set; }
+        public int NbLike { get; private set; }
 
 
         public Faq() { }
@@ -20,11 +21,18 @@
             Question = question;
             Response = response;
             IsVisible = isVisible;
+            NbLike = 0;
         }
 
         public Faq ChangeVisibility(bool visible)
         {
             IsVisible = visible;
+            return this;
+        }
+
+        public Faq IncrLike()
+        {
+            NbLike++;
             return this;
         }
     }

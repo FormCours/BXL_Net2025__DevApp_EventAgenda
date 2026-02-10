@@ -13,7 +13,8 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Mappers
                 Id = data.Id,
                 Question = data.Question,
                 Response = data.Response,
-                IsHidden = !data.IsVisible
+                IsHidden = !data.IsVisible,
+                NbLike = data.NbLike,
             };
         }
 

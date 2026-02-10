@@ -48,5 +48,16 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
             faq.ChangeVisibility(visibility);
             _faqRepository.Update(faq);
         }
+
+        public void AddLike(long id)
+        {
+            Faq? faq = _faqRepository.GetById(id);
+
+            if (faq is null)
+                throw new FaqNotFoundException();
+
+            faq.IncrLike();
+            _faqRepository.Update(faq);
+        }
     }
 }

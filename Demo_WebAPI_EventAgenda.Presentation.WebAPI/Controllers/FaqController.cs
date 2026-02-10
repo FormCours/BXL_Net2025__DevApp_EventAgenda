@@ -45,14 +45,21 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
         public IActionResult ShowElement(long id)
         {
             _faqService.UpdateVisibility(id, true);
-            return NoContent();
+            return Accepted();
         }
 
         [HttpPatch("{id}/hide")]
         public IActionResult HideElement(long id)
         {
             _faqService.UpdateVisibility(id, false);
-            return NoContent();
+            return Accepted();
+        }
+
+        [HttpPatch("{id}/like")]
+        public IActionResult LikeElement(long id)
+        {
+            _faqService.AddLike(id);
+            return Accepted();
         }
     }
 }

@@ -30,6 +30,11 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Configs
                 .IsUnicode()
                 .IsRequired();
 
+            builder.Property(f => f.NbLike)
+                .HasColumnName("Nb_Like")
+                .HasDefaultValue(0)
+                .IsRequired();
+
             builder.Property(f => f.IsVisible)
                 .HasColumnName("Is_Visible")
                 .IsRequired();

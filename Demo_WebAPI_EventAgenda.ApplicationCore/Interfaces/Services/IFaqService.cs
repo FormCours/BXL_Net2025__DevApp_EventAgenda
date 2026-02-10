@@ -9,5 +9,6 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services
         public IEnumerable<Faq> GetAll(bool includesHidden = false);
         public IEnumerable<Faq> GetBySearch(IEnumerable<string> terms, bool includesHidden = false);
         public void UpdateVisibility(long id, bool visibility);
+        public void AddLike(long id);
     }
 }

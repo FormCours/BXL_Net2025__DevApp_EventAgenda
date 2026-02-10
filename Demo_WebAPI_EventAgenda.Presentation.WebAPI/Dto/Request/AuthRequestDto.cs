@@ -21,4 +21,13 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Request
         [Required]
         public required bool AllowNewsletter { get; set; }
     }
+
+    public class AuthLoginRequestDto
+    {
+        [Required]
+        public required string Email { get; set; }
+
+        [Required]
+        public required string Password { get; set; }
+    }
 }

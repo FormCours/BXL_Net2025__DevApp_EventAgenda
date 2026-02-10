@@ -27,5 +27,11 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
         {
             return _DbContext.Members.SingleOrDefault(m => m.Email == email)?.HashPwd;
         }
+
+        public Member GetByEmail(string email)
+        {
+            var result = _DbContext.Members.Single(m => m.Email == email);
+            return new Member(result.Id, result.Email, result.Pseudo, result.AllowNewsletter);
+        }
     }
 }

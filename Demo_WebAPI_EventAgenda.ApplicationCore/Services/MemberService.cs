@@ -1,5 +1,6 @@
 ﻿using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories;
 using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services;
+using Demo_WebAPI_EventAgenda.Domain.BusinessExceptions;
 using Demo_WebAPI_EventAgenda.Domain.Models;
 using Soenneker.Hashing.Argon2;
 
@@ -36,6 +37,25 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
 
             // Créer le compte dans la base de donnée via le repo
             return _memberRepository.Insert(memberToInsert);
+        }
+
+        public Member Login(string email, string password)
+        {
+            string? hashPwd = _memberRepository.GetHashPwd(email);
+            if(hashPwd is null)
+            {
+                // Le compte n'existe pas !
+                throw new MemberBadCredentialException();
+            }
+
+            bool isValid = Argon2HashingUtil.Verify(password, hashPwd).Result;
+            if (!isValid) 
+            {
+                // Le mot de passe est invalide !
+                throw new MemberBadCredentialException();
+            }
+
+            return _memberRepository.GetByEmail(email);
         }
     }
 }

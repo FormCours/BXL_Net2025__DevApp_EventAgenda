@@ -35,5 +35,18 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
                 Message = "Votre compte a bien été créé !"
             });
         }
+
+
+        [HttpPost("Login")]
+        public IActionResult Login([FromBody] AuthLoginRequestDto dto)
+        {
+            Member member = _memberService.Login(dto.Email, dto.Password);
+
+
+            return Ok(new
+            {
+                Message = "Bravo, vous avez mit des credentials valides 👈(ﾟヮﾟ👈)"
+            });
+        }
     }
 }

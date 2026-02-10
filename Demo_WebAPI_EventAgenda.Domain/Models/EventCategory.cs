@@ -4,11 +4,11 @@
     {
         // Propriétés
         public long Id { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; private set; } = default!;
 
         // Constructeur
         // - Vide → Necessaire pour EntityFramework
-        public EventCategory() { }
+        private EventCategory() { }
 
         // - Parametres → Avec validation
         public EventCategory(string name)

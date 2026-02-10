@@ -6,13 +6,13 @@ namespace Demo_WebAPI_EventAgenda.Domain.Models
     {
         // Propriétés
         public long Id { get; private set; }
-        public string Email { get; private set; }
+        public string Email { get; private set; } = default!;
         public string? Pseudo { get; private set; }
         public string? HashPwd { get; private set; }
         public bool AllowNewsletter { get; private set; }
 
         // Constructeur
-        public Member() { }
+        private Member() { }
 
         public Member(string email, string? pseudo, bool allowNewsletter, string? hashPwd = null)
         {

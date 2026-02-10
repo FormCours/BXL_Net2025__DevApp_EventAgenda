@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Soenneker.Hashing.Argon2" Version="4.0.692" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Demo_WebAPI_EventAgenda.Domain\Demo_WebAPI_EventAgenda.Domain.csproj" />
   </ItemGroup>
 

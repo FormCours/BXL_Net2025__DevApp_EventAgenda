@@ -3,11 +3,15 @@ using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services;
 using Demo_WebAPI_EventAgenda.ApplicationCore.Services;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories;
+using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Configs;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.ExceptionHandlers;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Token;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OpenApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -76,8 +80,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// https://learn.microsoft.com/fr-fr/aspnet/core/fundamentals/openapi/customize-openapi?view=aspnetcore-10.0
+builder.Services.AddOpenApi(options => {
 
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Info = new()
+        {
+            Title = "Agenda Event API",
+            Version = "v1",
+            Description = "Démo d'une API RESTFull pour le groupe .Net React de DigitalCity"
+        };
+        return Task.CompletedTask;
+    });
+    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+
+});
 
 // ----------------------------------------------------------------------------------------
 

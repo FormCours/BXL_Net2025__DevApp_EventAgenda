@@ -3,6 +3,7 @@ using Demo_WebAPI_EventAgenda.Domain.Models;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Mappers;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Request;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
@@ -43,6 +44,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
         // Endpoint pour ajouter un évent dans la DB
         [HttpPost]
         [ProducesResponseType<AgendaEventResponseDto>(201)]
+        [Authorize]
         public IActionResult AddElement(AgendaEventRequestDto data)
         {
             // Transformer les données "RequestDto" vers le type model (Domain)
@@ -69,6 +71,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Delete(int id)
         {
             _agendaEventService.Delete(id);

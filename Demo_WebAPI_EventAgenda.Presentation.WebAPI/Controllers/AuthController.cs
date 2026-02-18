@@ -48,7 +48,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
             string token = _tokenTool.Generate(new TokenTool.Data()
             {
                 MemberId = member.Id,
-                Role = "Péon"
+                Role = dto.Email == "della@test.be" ? "Admin" : "Péon" // ← C'est degeux, on changera ça plus tard
             });
 
             return Ok(new

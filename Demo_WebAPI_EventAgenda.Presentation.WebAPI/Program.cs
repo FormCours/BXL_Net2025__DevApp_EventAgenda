@@ -5,8 +5,11 @@ using Demo_WebAPI_EventAgenda.Infrastructure.Database;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.ExceptionHandlers;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Token;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,10 +54,32 @@ builder.Services.AddControllers();
 builder.Services.AddExceptionHandler<AgendaEventExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+// Configuration de l'authentification par JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    byte[] secretKey = Encoding.UTF8.GetBytes(builder.Configuration["Token:Key"]!);
+
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        // ↓ Valeur valide pour la config du token
+                        ValidIssuer = builder.Configuration["Token:Issuer"],
+                        ValidAudience = builder.Configuration["Token:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+
+                        // ↓ Regles de validation 
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
+                    };
+                });
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 
+// ----------------------------------------------------------------------------------------
 
 var app = builder.Build();
 
@@ -69,6 +94,7 @@ app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
 
+app.UseAuthentication();  // ← Active le systeme d'authenfication précédement configuré !!!
 app.UseAuthorization();
 
 app.MapControllers();

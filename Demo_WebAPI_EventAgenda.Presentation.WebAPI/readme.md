@@ -1,40 +1,40 @@
 # Web API
 
 ## Principe Restfull
-Les requÍtes d'une API Restfull utilise la mÈthode de la requete pour dÈfinir le type d'action attendue et renvoie un status adaptÈ.
+Les requ√™tes d'une API Restfull utilise la m√©thode de la requete pour d√©finir le type d'action attendue et renvoie un status adapt√©.
 
 ### GET
-RÈcuperation de ressource(s).  
-RÈponse attendue : 200, 404.
+R√©cuperation de ressource(s).  
+R√©ponse attendue : 200, 404.
 
 ### POST
 Ajouter une nouvelle ressource.  
-RÈponse attendue : 201, 400, 422.
+R√©ponse attendue : 201, 400, 422.
 
 ### PUT
-Mise ‡ jour complete d'une ressource.  
-RÈponse attendue : 204, 400, 404, 422.
+Mise √† jour complete d'une ressource.  
+R√©ponse attendue : 204, 400, 404, 422.
 
 ### PATCH
-Mise ‡ jours partielle d'une ressource.  
-RÈponse attendue : 204, 400, 404, 422.
+Mise √† jours partielle d'une ressource.  
+R√©ponse attendue : 204, 400, 404, 422.
 
 ### DELETE
 Suppression de ressource(s).  
-RÈponse attendue : 204, 404.
+R√©ponse attendue : 204, 404.
 
 ### HEAD
-VÈrification de la prÈsence de ressource(s).  
-RÈponse attendue : 204, 404.
+V√©rification de la pr√©sence de ressource(s).  
+R√©ponse attendue : 204, 404.
 
 ## Implmentation de l'ASP
-On met en place des controllers avec des mÈthodes qui retourne un `ActionResult` ou `IActionResult`.  
-- Le routing est lier aux mÈthodes des controllers
-- Le systeme ASP extrait les donnÈes de la requete pour les fournir ‡ la mÈthode
-- Le systeme ASP fourni des mÈthodes pour gÈnÈrer les rÈponses
+On met en place des controllers avec des m√©thodes qui retourne un `ActionResult` ou `IActionResult`.  
+- Le routing est lier aux m√©thodes des controllers
+- Le systeme ASP extrait les donn√©es de la requete pour les fournir √† la m√©thode
+- Le systeme ASP fourni des m√©thodes pour g√©n√©rer les r√©ponses
 
-### Extraction des donnÈes de la requete
-DonnÈe depuis la route l'url : `exemple.com/product/5` 
+### Extraction des donn√©es de la requete
+Donn√©e depuis la route l'url : `exemple.com/product/5` 
 ```cs
 [HttpDelete("{id}")]
 public IActionResult Delete([FromRoute] int id)
@@ -43,7 +43,7 @@ public IActionResult Delete([FromRoute] int id)
 }
 ```
 
-DonnÈes depuis les parametres "query" (UrlSearchParams) : `exemple.com/product?page=1&nbElement=10` 
+Donn√©es depuis les parametres "query" (UrlSearchParams) : `exemple.com/product?page=1&nbElement=10` 
 ```cs
 [HttpGet]
 public IActionResult GetAll([FromQuery] int page, [FromQuery] int nbElement)
@@ -52,7 +52,7 @@ public IActionResult GetAll([FromQuery] int page, [FromQuery] int nbElement)
 }
 ```
 
-DonnÈes depuis le contenu du body (Uniquement : POST, PUT, PATCH)
+Donn√©es depuis le contenu du body (Uniquement : POST, PUT, PATCH)
 ```cs
 [HttpPost]
 public IActionResult Add([FromBody] Product data, [FromQuery] apiKey)
@@ -60,3 +60,14 @@ public IActionResult Add([FromBody] Product data, [FromQuery] apiKey)
 	// ...
 }
 ```
+
+## Json Web Token (JWT)
+Dans une WebAPI Restfull, le server est "stateless" (Ne conserve pas de pr√©sistance donn√©e li√©e aux requetes - Pas de session).  
+Un JWT sert de jeton d‚Äôauthentification s√©curis√© qui permet de v√©rifier l‚Äôidentit√© d‚Äôun utilisateur sans devoir stocker.
+
+Principe du fonctionnement :
+- Le serveur g√©n√®re un token sign√© apr√®s la connexion de l‚Äôutilisateur.
+- Le token est envoy√© par le client √† chaque requ√™te.
+- La Web API valide la signature du token et accorder ou refuser l‚Äôacc√®s aux routes prot√©g√©es.
+
+Le framework ASP.Net impl√©ment le `JwtSecurityToken ` qui permet de le g√©n√©rer.

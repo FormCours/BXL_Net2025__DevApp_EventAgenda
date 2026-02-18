@@ -14,4 +14,9 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Dto.Request
         [MaxLength(255)]
         public required string Response { get; set; }
     }
+
+    public class FaqRequestPatchDto
+    {
+        public required bool? Visibility { get; set; }
+    }
 }

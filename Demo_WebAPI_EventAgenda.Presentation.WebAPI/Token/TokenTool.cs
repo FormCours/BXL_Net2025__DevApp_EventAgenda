@@ -28,7 +28,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Token
         // ↓ Méthode pour générer le token
         public string Generate(Data data)
         {
-            // Ensemble des données contenu dans le token via « Claim »
+            // Ensemble des données contenu dans le token via « Claim » (Seront visible depuis le token !)
             Claim[] claims = [
                 new Claim("clef", "La réponse est 42"),
                 new Claim(ClaimTypes.NameIdentifier, data.MemberId.ToString()),
@@ -36,7 +36,8 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Token
             ];
 
             // La signature du token
-            byte[] key = Encoding.UTF8.GetBytes(_config["Token:Key"]!);
+            string secret = _config["Token:Key"] ?? throw new Exception("Clef du token non défini dans l'env !");
+            byte[] key = Encoding.UTF8.GetBytes(secret);
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
 

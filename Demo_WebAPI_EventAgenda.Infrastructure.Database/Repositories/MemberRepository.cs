@@ -20,7 +20,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
             _DbContext.SaveChanges();
 
             var result = element.Entity;
-            return new Member(result.Id, result.Email, result.Pseudo, result.AllowNewsletter);
+            return new Member(result.Id, result.Email, result.Pseudo, result.AllowNewsletter, result.Role);
         }
 
         public string? GetHashPwd(string email)
@@ -31,7 +31,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
         public Member GetByEmail(string email)
         {
             var result = _DbContext.Members.Single(m => m.Email == email);
-            return new Member(result.Id, result.Email, result.Pseudo, result.AllowNewsletter);
+            return new Member(result.Id, result.Email, result.Pseudo, result.AllowNewsletter, result.Role);
         }
     }
 }

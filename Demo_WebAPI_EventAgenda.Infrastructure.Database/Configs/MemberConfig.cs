@@ -1,4 +1,5 @@
-﻿using Demo_WebAPI_EventAgenda.Domain.Models;
+﻿using Demo_WebAPI_EventAgenda.Domain.Enums;
+using Demo_WebAPI_EventAgenda.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -29,6 +30,12 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Configs
                 .HasMaxLength(50)
                 .IsUnicode()
                 .IsRequired(false);
+
+            builder.Property(m => m.Role)
+                .HasConversion<string>()
+                .HasDefaultValue(MemberRoleEnum.Peon)
+                .HasSentinel(0)
+                .IsRequired();
 
             builder.Property(m => m.HashPwd)
                 .HasColumnName("Hash_Pwd")

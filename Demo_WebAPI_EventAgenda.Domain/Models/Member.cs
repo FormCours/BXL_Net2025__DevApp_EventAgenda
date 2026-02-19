@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using Demo_WebAPI_EventAgenda.Domain.Enums;
+using System.Net.Mail;
 
 namespace Demo_WebAPI_EventAgenda.Domain.Models
 {
@@ -10,6 +11,7 @@ namespace Demo_WebAPI_EventAgenda.Domain.Models
         public string? Pseudo { get; private set; }
         public string? HashPwd { get; private set; }
         public bool AllowNewsletter { get; private set; }
+        public MemberRoleEnum Role { get; private set; }
 
         // Constructeur
         private Member() { }
@@ -26,12 +28,14 @@ namespace Demo_WebAPI_EventAgenda.Domain.Models
             Pseudo = pseudo;
             AllowNewsletter = allowNewsletter;
             HashPwd = hashPwd;
+            Role = MemberRoleEnum.Peon;
         }
 
-        public Member(long id, string email, string? pseudo, bool allowNewsletter, string? hashPwd = null)
+        public Member(long id, string email, string? pseudo, bool allowNewsletter, MemberRoleEnum role, string? hashPwd = null)
             :this(email, pseudo, allowNewsletter, hashPwd)
         {
             Id = id;
+            Role = role;
         }
     }
 }

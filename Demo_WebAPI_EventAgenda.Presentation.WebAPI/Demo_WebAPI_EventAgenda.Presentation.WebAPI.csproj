@@ -23,6 +23,7 @@
     <ProjectReference Include="..\Demo_WebAPI_EventAgenda.ApplicationCore\Demo_WebAPI_EventAgenda.ApplicationCore.csproj" />
     <ProjectReference Include="..\Demo_WebAPI_EventAgenda.Domain\Demo_WebAPI_EventAgenda.Domain.csproj" />
     <ProjectReference Include="..\Demo_WebAPI_EventAgenda.Infrastructure.Database\Demo_WebAPI_EventAgenda.Infrastructure.Database.csproj" />
+    <ProjectReference Include="..\Demo_WebAPI_EventAgenda.Infrastructure.Mailer\Demo_WebAPI_EventAgenda.Infrastructure.Mailer.csproj" />
   </ItemGroup>
 
 </Project>

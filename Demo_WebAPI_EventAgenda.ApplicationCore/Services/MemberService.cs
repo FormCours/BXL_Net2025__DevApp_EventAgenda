@@ -1,5 +1,6 @@
 ﻿using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories;
 using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services;
+using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Utils;
 using Demo_WebAPI_EventAgenda.Domain.BusinessExceptions;
 using Demo_WebAPI_EventAgenda.Domain.Models;
 using Soenneker.Hashing.Argon2;
@@ -9,10 +10,12 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
     public class MemberService : IMemberService
     {
         private readonly IMemberRepository _memberRepository;
+        private readonly IMailerUtil _mailerUtil;
 
-        public MemberService(IMemberRepository memberRepository)
+        public MemberService(IMemberRepository memberRepository, IMailerUtil mailerUtil)
         {
             _memberRepository = memberRepository;
+            _mailerUtil = mailerUtil;
         }
 
 
@@ -36,7 +39,13 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
             );
 
             // Créer le compte dans la base de donnée via le repo
-            return _memberRepository.Insert(memberToInsert);
+            Member memberInserted = _memberRepository.Insert(memberToInsert);
+
+            // Envoi du mail de bienvenue
+            _mailerUtil.SendWelcomeMessage(member);
+
+            // Envoi du compte créer
+            return memberInserted;
         }
 
         public Member Login(string email, string password)

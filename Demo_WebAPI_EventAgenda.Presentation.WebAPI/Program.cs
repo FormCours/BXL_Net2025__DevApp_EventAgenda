@@ -1,8 +1,10 @@
 ﻿using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories;
 using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services;
+using Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Utils;
 using Demo_WebAPI_EventAgenda.ApplicationCore.Services;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database;
 using Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories;
+using Demo_WebAPI_EventAgenda.Infrastructure.Mailer;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Configs;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.ExceptionHandlers;
 using Demo_WebAPI_EventAgenda.Presentation.WebAPI.Token;
@@ -26,6 +28,17 @@ var builder = WebApplication.CreateBuilder(args);
 // DI Configuration 
 // - Tools
 builder.Services.AddSingleton<TokenTool>();
+builder.Services.AddSingleton<IMailerUtil, MailerUtil>(service =>
+{
+    return new MailerUtil(
+        builder.Configuration["Mailer:Host"]!,
+        builder.Configuration.GetValue<int>("Mailer:Port", 25),
+        builder.Configuration["Mailer:Username"]!,
+        builder.Configuration["Mailer:Password"]!,
+        builder.Configuration["Mailer:AppEmail"]!,
+        builder.Configuration["Mailer:AppName"]!
+    );
+});
 
 // - Services
 builder.Services.AddScoped<IAgendaEventService, AgendaEventService>();
@@ -43,7 +56,7 @@ builder.Services.AddScoped<IFaqRepository, FaqRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
-    
+
     // La méthode "GetConnectionString" permet d'obtenir la connection suivante 
     //  - Data Source=ICT-204-00             : Serveur de base de donnée
     //  - Initial Catalog=digital_agenda_db  : La base de donnée ciblée
@@ -81,7 +94,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 // https://learn.microsoft.com/fr-fr/aspnet/core/fundamentals/openapi/customize-openapi?view=aspnetcore-10.0
-builder.Services.AddOpenApi(options => {
+builder.Services.AddOpenApi(options =>
+{
 
     options.AddDocumentTransformer((document, context, cancellationToken) =>
     {

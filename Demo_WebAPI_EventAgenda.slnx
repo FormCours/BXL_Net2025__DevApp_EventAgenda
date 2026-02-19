@@ -7,6 +7,7 @@
   </Folder>
   <Folder Name="/Infrastructure/">
     <Project Path="Demo_WebAPI_EventAgenda.Infrastructure.Database/Demo_WebAPI_EventAgenda.Infrastructure.Database.csproj" />
+    <Project Path="Demo_WebAPI_EventAgenda.Infrastructure.Mailer/Demo_WebAPI_EventAgenda.Infrastructure.Mailer.csproj" Id="f026d589-499f-423d-8fd7-5be71323325a" />
   </Folder>
   <Folder Name="/Presentation/">
     <Project Path="Demo_WebAPI_EventAgenda.Presentation.WebAPI/Demo_WebAPI_EventAgenda.Presentation.WebAPI.csproj" Id="8b54bce3-6314-48ea-bf77-c88f27ccd430" />

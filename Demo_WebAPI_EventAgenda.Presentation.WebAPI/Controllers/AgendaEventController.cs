@@ -71,7 +71,7 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin,Modo")]
         public IActionResult Delete(int id)
         {
             _agendaEventService.Delete(id);
@@ -113,6 +113,28 @@ namespace Demo_WebAPI_EventAgenda.Presentation.WebAPI.Controllers
             IEnumerable<AgendaEventListItemResponseDto> dto = result.Select(AgendaEventMapper.ToListResponseDto);
 
             return Ok(dto);
+        }
+
+        [HttpPost("{id}/follow")]
+        [Authorize]
+        public IActionResult AddFollow([FromRoute] long id)
+        {
+            long memberId = long.Parse(User.Claims.Single(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+
+            _agendaEventService.AddFollower(id, memberId);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}/follow")]
+        [Authorize]
+        public IActionResult RemoveFollow([FromRoute] long id)
+        {
+            long memberId = long.Parse(User.Claims.Single(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+
+            _agendaEventService.RemoveFollower(id, memberId);
+
+            return NoContent();
         }
     }
 }

@@ -11,4 +11,9 @@
             : base("Les informations d'identification sont invalide 눈_눈")
         { }
     }
+
+    public class MemberNotFoundException : MemberException
+    {
+        public MemberNotFoundException() : base("Le compte n'a pas été trouvé !") { }
+    }
 }

@@ -12,6 +12,7 @@ namespace Demo_WebAPI_EventAgenda.Domain.Models
         public DateTime StartDate { get; private set; }
         public DateTime? EndDate { get; private set; }
         public EventCategory Category { get; private set; } = default!;
+        public List<Member> Followers { get; private set; } = [];
 
         // Constructeur
         private AgendaEvent() { }

@@ -57,6 +57,11 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Configs
                 .HasForeignKey("Category_Id")
                 .HasConstraintName("FK_Agenda_Events__Categories")
                 .IsRequired();
+
+            builder
+                .HasMany(ae => ae.Followers)
+                .WithMany(m => m.FollowEvents)
+                .UsingEntity("Agenda_Event_Followers");
         }
     }
 }

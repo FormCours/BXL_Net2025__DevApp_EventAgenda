@@ -12,6 +12,7 @@ namespace Demo_WebAPI_EventAgenda.Domain.Models
         public string? HashPwd { get; private set; }
         public bool AllowNewsletter { get; private set; }
         public MemberRoleEnum Role { get; private set; }
+        public List<AgendaEvent> FollowEvents { get; private set; } = [];
 
         // Constructeur
         private Member() { }

@@ -33,5 +33,13 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
             var result = _DbContext.Members.Single(m => m.Email == email);
             return new Member(result.Id, result.Email, result.Pseudo, result.AllowNewsletter, result.Role);
         }
+
+        public Member? GetById(long id)
+        {
+            var result = _DbContext.Members.SingleOrDefault(m => m.Id == id);
+
+            if (result is null) return null;
+            return new Member(result.Id, result.Email, result.Pseudo, result.AllowNewsletter, result.Role);
+        }
     }
 }

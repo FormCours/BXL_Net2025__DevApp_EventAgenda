@@ -13,5 +13,8 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Services
         AgendaEvent Create(AgendaEvent data);
         void UpdateDate(long id, DateTime startDate, DateTime? endDate = null);
         void Delete(long id);
+
+        void AddFollower(long agendaEventId, long memberId);
+        void RemoveFollower(long agendaEventId, long memberId);
     }
 }

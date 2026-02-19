@@ -8,10 +8,12 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
     public class AgendaEventService : IAgendaEventService
     {
         private IAgendaEventRepository _agendaEventRepository;
+        private IMemberRepository _memberRepository;
 
-        public AgendaEventService(IAgendaEventRepository agendaEventRepository)
+        public AgendaEventService(IAgendaEventRepository agendaEventRepository, IMemberRepository memberRepository)
         {
             _agendaEventRepository = agendaEventRepository;
+            _memberRepository = memberRepository;
         }
 
 
@@ -91,6 +93,34 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
 
             // Répercution du changement dans la base de donnée via le repo
             _agendaEventRepository.Update(agendaEvent);
+        }
+
+        public void AddFollower(long agendaEventId, long memberId)
+        {
+            // Récuperation de l'event
+            AgendaEvent? agendaEvent = _agendaEventRepository.GetById(agendaEventId);
+            if (agendaEvent is null) throw new AgendaEventNotFoundException();
+
+            // Récuperation de l'utilisateur
+            Member? member = _memberRepository.GetById(memberId);
+            if (member is null) throw new MemberNotFoundException();
+
+            // Répercution du changement dans la base de donnée via le repo
+            _agendaEventRepository.AddFollower(agendaEventId, memberId);
+        }
+
+        public void RemoveFollower(long agendaEventId, long memberId)
+        {
+            // Récuperation de l'event
+            AgendaEvent? agendaEvent = _agendaEventRepository.GetById(agendaEventId);
+            if (agendaEvent is null) throw new AgendaEventNotFoundException();
+
+            // Récuperation de l'utilisateur
+            Member? member = _memberRepository.GetById(memberId);
+            if (member is null) throw new MemberNotFoundException();
+
+            // Répercution du changement dans la base de donnée via le repo
+            _agendaEventRepository.RemoveFollower(agendaEventId, memberId);
         }
     }
 }

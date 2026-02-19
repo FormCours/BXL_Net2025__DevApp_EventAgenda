@@ -34,6 +34,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Configs
             builder.Property(m => m.Role)
                 .HasConversion<string>()
                 .HasDefaultValue(MemberRoleEnum.Peon)
+                .HasMaxLength(10)
                 .HasSentinel(0)
                 .IsRequired();
 

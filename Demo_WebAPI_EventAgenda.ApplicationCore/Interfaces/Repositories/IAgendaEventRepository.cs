@@ -12,5 +12,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories
         bool Delete(long id);
 
         IEnumerable <AgendaEvent> GetByDate (DateTime startDate, DateTime? endDate = null);
+        void AddFollower(long agendaEventId, long memberId);
+        void RemoveFollower(long agendaEventId, long memberId);
     }
 }

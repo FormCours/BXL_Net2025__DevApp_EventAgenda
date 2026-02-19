@@ -96,7 +96,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
                                 (
                                     // Si l'event commence avant la recherche, on vérifie que la fin est après le debut chercher
                                     ae.StartDate <= searchStartDate
-                                    && 
+                                    &&
                                     (ae.EndDate ?? ae.StartDate) >= searchStartDate
                                 )
                                 ||
@@ -106,7 +106,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
                                     &&
                                     ae.StartDate <= searchEndDate
                                 )
-                                || 
+                                ||
                                 (
                                     // L'event est compris dans la recherche
                                     ae.StartDate >= searchStartDate
@@ -117,6 +117,17 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
 
             return result;
         }
+
+        public void AddFollower(long agendaEventId, long memberId)
+        {
+            // TODO Finish this
+        }
+
+        public void RemoveFollower(long agendaEventId, long memberId)
+        {
+            // TODO Finish this
+        }
+
     }
 }
 

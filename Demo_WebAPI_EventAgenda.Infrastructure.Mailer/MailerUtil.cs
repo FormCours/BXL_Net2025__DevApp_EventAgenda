@@ -24,7 +24,7 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Mailer
             _AppName = appName;
         }
 
-        public async Task<string> LoadMailTemplateAsync(string templateFileName)
+        private async Task<string> LoadMailTemplateAsync(string templateFileName)
         {
             if (string.IsNullOrWhiteSpace(templateFileName))
                 throw new ArgumentException("templateFileName must be provided", nameof(templateFileName));

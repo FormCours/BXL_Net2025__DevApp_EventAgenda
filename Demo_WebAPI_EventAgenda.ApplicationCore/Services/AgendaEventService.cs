@@ -105,7 +105,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
             Member? member = _memberRepository.GetById(memberId);
             if (member is null) throw new MemberNotFoundException();
 
-            // Répercution du changement dans la base de donnée via le repo
+            // Ajout du follower via le répo
             _agendaEventRepository.AddFollower(agendaEventId, memberId);
         }
 
@@ -119,7 +119,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Services
             Member? member = _memberRepository.GetById(memberId);
             if (member is null) throw new MemberNotFoundException();
 
-            // Répercution du changement dans la base de donnée via le repo
+            // Suppression du follower via le répo
             _agendaEventRepository.RemoveFollower(agendaEventId, memberId);
         }
     }

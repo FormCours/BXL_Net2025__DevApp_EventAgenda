@@ -4,7 +4,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories
 {
     public interface IAgendaEventRepository
     {
-        AgendaEvent? GetById(long id);
+        AgendaEvent? GetById(long id, bool includeFollowers = false);
         IEnumerable<AgendaEvent> GetMany(int offset, int limit);
 
         AgendaEvent Insert(AgendaEvent data);
@@ -12,6 +12,7 @@ namespace Demo_WebAPI_EventAgenda.ApplicationCore.Interfaces.Repositories
         bool Delete(long id);
 
         IEnumerable <AgendaEvent> GetByDate (DateTime startDate, DateTime? endDate = null);
+
         void AddFollower(long agendaEventId, long memberId);
         void RemoveFollower(long agendaEventId, long memberId);
     }

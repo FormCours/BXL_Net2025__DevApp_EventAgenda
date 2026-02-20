@@ -43,5 +43,21 @@ namespace Demo_WebAPI_EventAgenda.Domain.Models
 
             return this;  // -> Permet d'enchainer les méthodes (C'est optionnel)
         }
+
+        public void AddFollower(Member member) 
+        { 
+            if (Followers.Any(f => f.Id == member.Id)) 
+                return; 
+            
+            Followers.Add(member); 
+        }
+
+        public void RemoveFollower(Member member) 
+        { 
+            var follower = Followers.SingleOrDefault(x => x.Id == member.Id); 
+            
+            if (follower is not null) 
+                Followers.Remove(follower);
+        }
     }
 }

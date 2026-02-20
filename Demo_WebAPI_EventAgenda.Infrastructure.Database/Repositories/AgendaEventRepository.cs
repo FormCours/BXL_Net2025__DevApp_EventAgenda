@@ -16,11 +16,16 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
         }
 
         // ↓ Implementation du repository
-        public AgendaEvent? GetById(long id)
+        public AgendaEvent? GetById(long id, bool includeFollowers = false)
         {
-            return _DbContext.AgendaEvents
-                .Include(ae => ae.Category)
-                .SingleOrDefault(ae => ae.Id == id);
+            IQueryable<AgendaEvent> query = _DbContext.AgendaEvents.Include(ae => ae.Category);
+
+            if (includeFollowers)
+            {
+                query = query.Include(ae => ae.Followers);
+            }
+
+            return query.SingleOrDefault(ae => ae.Id == id);
         }
 
         public IEnumerable<AgendaEvent> GetMany(int offset, int limit)
@@ -120,14 +125,32 @@ namespace Demo_WebAPI_EventAgenda.Infrastructure.Database.Repositories
 
         public void AddFollower(long agendaEventId, long memberId)
         {
-            // TODO Finish this
-        }
+            var agenda = _DbContext.AgendaEvents
+                            .Include(a => a.Followers)
+                            .SingleOrDefault(a => a.Id == agendaEventId);
+            if (agenda == null) throw new InvalidOperationException("AgendaEvent introuvable");
 
+            var member = _DbContext.Members.Find(memberId);
+            if (member == null) throw new InvalidOperationException("Member introuvable");
+
+            agenda.AddFollower(member);
+
+            _DbContext.SaveChanges();
+        }
         public void RemoveFollower(long agendaEventId, long memberId)
         {
-            // TODO Finish this
-        }
+            var agenda = _DbContext.AgendaEvents
+                            .Include(a => a.Followers)
+                            .SingleOrDefault(a => a.Id == agendaEventId);
+            if (agenda == null) throw new InvalidOperationException("AgendaEvent introuvable");
 
+            var member = _DbContext.Members.Find(memberId);
+            if (member == null) throw new InvalidOperationException("Member introuvable");
+
+            agenda.RemoveFollower(member);
+
+            _DbContext.SaveChanges();
+        }
     }
 }
 
